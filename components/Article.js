@@ -89,6 +89,7 @@ const data = [
   }
 ];
 
+
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
@@ -98,10 +99,11 @@ const data = [
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+    {three separate paragraph elements}<p>
 
     <span class="expandButton">+</span>
   </div>
+  
 
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
@@ -114,3 +116,63 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+//Step 1
+function articleMaker(obj){
+  const div = document.createElement('div');
+  const title = document.createElement('h2');
+  const date = document.createElement('p');
+  const para1 = document.createElement('p');
+  const para2 = document.createElement('p');
+  const para3 = document.createElement('p');
+  const span = document.createElement('span');
+
+  div.appendChild(title);
+  div.appendChild(date);
+  div.appendChild(para1);
+  div.appendChild(para2);
+  div.appendChild(para3);
+  div.appendChild(span);
+
+  div.classList.add('article', 'article-open');
+  date.classList.add('date');
+  span.classList.add('expandButton');
+  
+  title.textContent = obj.title;
+  date.textContent = obj.date;
+  para1.textContent = obj.firstParagraph;
+  para2.textContent = obj.secondParagraph;
+  para3.textContent = obj.thirdParagraph;
+  span.textContent = '+';
+
+  //Step 2
+  span.addEventListener('click', () => {
+    div.classList.toggle('article-open');
+  })
+
+//Step 3
+  return div; 
+}
+
+//Step 4
+const body = document.querySelector('body');
+data.forEach(item => {
+  let newItem = articleMaker(item);
+  body.appendChild(newItem);
+});
+
+//Step 5
+let newArt = [
+  {
+    title: `Struggle Bus Today`,
+    date: `Dec 1st, 2021`,
+    firstParagraph: `Today was much harder than the previous 2 days.`,
+    secondParagraph: `We hope we can do this! `,
+    thirdParagraph: `No choice but to get it done.`
+  }
+];
+
+newArt.forEach(item => {
+  let newItem2 = articleMaker(item);
+  body.appendChild(newItem2);
+});
