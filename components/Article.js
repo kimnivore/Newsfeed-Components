@@ -89,6 +89,7 @@ const data = [
   }
 ];
 
+
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
@@ -98,7 +99,7 @@ const data = [
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+    {three separate paragraph elements}<p>
 
     <span class="expandButton">+</span>
   </div>
@@ -116,32 +117,62 @@ const data = [
   Refresh the page to see the new article.
 */
 
-function articleMaker(article){
+//Step 1
+function articleMaker(obj){
   const div = document.createElement('div');
-  div.classList.add('article');
-  
   const title = document.createElement('h2');
-  title.textContent = data.title;
-
   const date = document.createElement('p');
-  data.textContent = data.date;
-  date.classList.add('date');
-
   const para1 = document.createElement('p');
-  para1.textContent = data.firstParagraph;
-
   const para2 = document.createElement('p');
-  para2.textContent = data.secondParagraph;
-
   const para3 = document.createElement('p');
-  para3.textContent = data.thirdParagraph;
-
   const span = document.createElement('span');
+
+  div.appendChild(title);
+  div.appendChild(date);
+  div.appendChild(para1);
+  div.appendChild(para2);
+  div.appendChild(para3);
+  div.appendChild(span);
+
+  div.classList.add('article', 'article-open');
+  date.classList.add('date');
   span.classList.add('expandButton');
-  span.addEventListener('toggle')
   
+  title.textContent = obj.title;
+  date.textContent = obj.date;
+  para1.textContent = obj.firstParagraph;
+  para2.textContent = obj.secondParagraph;
+  para3.textContent = obj.thirdParagraph;
+  span.textContent = '+';
+
+  //Step 2
+  span.addEventListener('click', () => {
+    div.classList.toggle('article-open');
+  })
+
+//Step 3
+  return div; 
 }
 
-data.forEach((title) => {
-  let newTitle = 
-})
+//Step 4
+const body = document.querySelector('body');
+data.forEach(item => {
+  let newItem = articleMaker(item);
+  body.appendChild(newItem);
+});
+
+//Step 5
+let newArt = [
+  {
+    title: `Struggle Bus Today`,
+    date: `Dec 1st, 2021`,
+    firstParagraph: `Today was much harder than the previous 2 days.`,
+    secondParagraph: `We hope we can do this! `,
+    thirdParagraph: `No choice but to get it done.`
+  }
+];
+
+newArt.forEach(item => {
+  let newItem2 = articleMaker(item);
+  body.appendChild(newItem2);
+});
